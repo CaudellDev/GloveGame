@@ -10,4 +10,7 @@ package GloveGame;
  */
 public class Screen {
     
+    public Screen() {
+        
+    }
 }
