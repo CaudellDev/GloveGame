@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GloveGame;
 
 import javax.swing.*;
 
 /**
- *
- * @author Tyler
+ * Primary class. Creates Window, and positions elements in window
+ * and handles some low level events.
  */
 public class GloveGame extends JFrame {
     
