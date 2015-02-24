@@ -19,8 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-public class AnimatedFrame extends JFrame implements Runnable
-{
+public class AnimatedFrame extends JFrame implements Runnable {
+    
     // Graphics mode info
     private GraphicsDevice dev;
     private DisplayMode mode;
@@ -42,8 +42,7 @@ public class AnimatedFrame extends JFrame implements Runnable
     //For handing events
     private Queue<Event> events;
     
-    public AnimatedFrame()
-    {
+    public AnimatedFrame() {
 	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	setUndecorated(true);
 	setResizable(false);
@@ -52,52 +51,40 @@ public class AnimatedFrame extends JFrame implements Runnable
 	nanosPerUpdate = 1000000000 / targetFPS;
 	events = new ConcurrentLinkedQueue<Event>();
 	
-	addWindowListener(new WindowAdapter()
-	{
+	addWindowListener(new WindowAdapter() {
 	    @Override
-	    public void windowClosing(WindowEvent evt)
-	    {
+	    public void windowClosing(WindowEvent evt) {
 		formWindowClosing(evt);
 	    }
 	});
 
-	addKeyListener(new KeyAdapter()
-	{
+	addKeyListener(new KeyAdapter() {
 	    @Override
-	    public void keyPressed(KeyEvent evt)
-	    {
+	    public void keyPressed(KeyEvent evt) {
 		formKeyPressed(evt);
 	    }
-	    
 	});
 	
-	addMouseListener(new MouseAdapter()
-	{
+	addMouseListener(new MouseAdapter() {
 	    @Override
-	    public void mouseReleased(MouseEvent evt)
-	    {
+	    public void mouseReleased(MouseEvent evt) {
 		formMouseClicked(evt);
 	    }
-	    
-            
 	});
-	
     }
 
-    private Screen createInitialScreen()
-    {
+    private Screen createInitialScreen() {
 	return new StartScreen(this);
     }
 
-    private void initGame()
-    {
+    private void initGame() {
 	currentScreen = createInitialScreen();
 
 	if (initFSMode()) {
 
 	    gameThread = new Thread(this);
 	    gameThread.start();
-	}else{
+	} else {
 	    System.out.println("initFSMode() returned false; quitting.");
 //            this.setPreferredSize(new Dimension(600, 600));
 //            this.setLocale(Locale.ENGLISH);
@@ -106,8 +93,7 @@ public class AnimatedFrame extends JFrame implements Runnable
 	}
     }
 
-    private boolean initFSMode()
-    {
+    private boolean initFSMode() {
 	GraphicsEnvironment env =
 		GraphicsEnvironment.getLocalGraphicsEnvironment();
 	dev = env.getDefaultScreenDevice();
@@ -123,21 +109,21 @@ public class AnimatedFrame extends JFrame implements Runnable
 
 	// Initial frame rate guess
 	lastFPS = mode.getRefreshRate();
-	if (lastFPS == 0)
+	if (lastFPS == 0) {
 	    lastFPS = 30;  // Just give _some_ nonzero guess
-	if (createBuffering())
+        }
+	if (createBuffering()) {
 	    return true;
-	else
+        } else {
 	    return false;
+        }
     }
     
-    private boolean initWindowedMode()
-    {
+    private boolean initWindowedMode() {
 	return true;
     }
 
-    private boolean createBuffering()
-    {
+    private boolean createBuffering() {
 	bstrat = getBufferStrategy();
 	createBufferStrategy(2);
 	// Wait up to 1 second for a buffer strategy to be created
@@ -145,6 +131,7 @@ public class AnimatedFrame extends JFrame implements Runnable
 	do {
 	    bstrat = getBufferStrategy();
 	} while (bstrat == null && targetNanos < System.nanoTime());
+        
 	if (bstrat == null) {
 	    return false;
 	}
@@ -152,8 +139,7 @@ public class AnimatedFrame extends JFrame implements Runnable
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
 	running = true;
 	long nextFrame = System.nanoTime() + nanosPerUpdate;
 	while (running) {
@@ -165,7 +151,7 @@ public class AnimatedFrame extends JFrame implements Runnable
 	    drawFrame();
 	    if (fpsTimeGoal == 0) {
 		fpsTimeGoal = System.nanoTime() + 5000000000L;
-	    }else if (fpsTimeGoal < System.nanoTime()) {
+	    } else if (fpsTimeGoal < System.nanoTime()) {
 		lastFPS = fpsCount / 5.0f;
 		lastUPS = upsCount / 5.0f;
 		fpsTimeGoal += 5000000000L;
@@ -173,14 +159,13 @@ public class AnimatedFrame extends JFrame implements Runnable
 			+ lastFPS + " fps; " + lastUPS + " ups");
 		fpsCount = 0;
 		upsCount = 0;
-	    }else{
+	    } else {
 		fpsCount++;
 	    }
 	}
     }
 
-    public void updateGame()
-    {
+    public void updateGame() {
 	currentScreen.update();
 	Screen next = currentScreen.getNextScreen();
 	if (next != null) {
@@ -188,8 +173,7 @@ public class AnimatedFrame extends JFrame implements Runnable
         }
     }
 
-    private void drawFrame()
-    {
+    private void drawFrame() {
 	try {
 	    Graphics2D gr = (Graphics2D)bstrat.getDrawGraphics();
 	    render(gr);
@@ -208,44 +192,37 @@ public class AnimatedFrame extends JFrame implements Runnable
 	}
     }
 
-    public void render(Graphics2D gr)
-    {
+    public void render(Graphics2D gr) {
 	currentScreen.render(gr);
     }
 
-    private void formWindowClosing(WindowEvent evt)
-    {
+    private void formWindowClosing(WindowEvent evt) {
 	running = false;
 	dev.setFullScreenWindow(null);
     }
     
-    private void formKeyPressed(KeyEvent evt)
-    {
+    private void formKeyPressed(KeyEvent evt) {
 	 if (evt.getKeyCode() == KeyEvent.VK_Q && evt.isControlDown()) {
              // Key event
              
          }
     }
 
-    private void formMouseClicked(MouseEvent evt)
-    {
+    private void formMouseClicked(MouseEvent evt) {
 	// Mouse click events...
     }
     
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 	AnimatedFrame frame = new AnimatedFrame();
 	frame.initGame();
     }
 
-    public Event getNextEvent()
-    {
+    public Event getNextEvent() {
 	return events.poll();
     }
     
-    public Queue<Event> getQueue()
-    {
+    public Queue<Event> getQueue() {
 	return events;
     }
 
