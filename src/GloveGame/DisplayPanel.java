@@ -1,5 +1,6 @@
 package GloveGame;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
@@ -17,7 +18,6 @@ public class DisplayPanel extends JPanel {
     private Screen currScreen;
     
     public DisplayPanel(Screen screen) {
-        this.currScreen = screen;
-        this.setPreferredSize(new Dimension(700, 600));
+        currScreen = screen;
     }
 }
