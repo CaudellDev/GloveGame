@@ -221,8 +221,9 @@ public class AnimatedFrame extends JFrame implements Runnable
     
     private void formKeyPressed(KeyEvent evt)
     {
-	 if (evt.getKeyCode() == KeyEvent.VK_LEFT && evt.isAltDown()) {
-             // Key events...
+	 if (evt.getKeyCode() == KeyEvent.VK_Q && evt.isControlDown()) {
+             // Key event
+             
          }
     }
 
