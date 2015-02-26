@@ -1,9 +1,6 @@
 package GloveGame;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.*;
 
 /**
  * Screen interface is where the game logic happens.

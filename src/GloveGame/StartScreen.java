@@ -18,12 +18,22 @@ public class StartScreen implements Screen {
 
     @Override
     public void update() {
+        AnimatedFrame.Event event = theFrame.getNextEvent();
+        
+        while (event != null) {
+            switch (event) {
+                case TODO:
+            }
+            event = theFrame.getNextEvent();
+        }
     }
 
     @Override
     public void render(Graphics2D g) {
         g.setColor(Color.black);
         g.fillRect(0, 0, theFrame.getWidth(), theFrame.getHeight());
+        
+        
         
         // Button
 //        g.setColor(Color.blue);
