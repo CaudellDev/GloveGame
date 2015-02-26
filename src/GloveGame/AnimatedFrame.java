@@ -49,7 +49,7 @@ public class AnimatedFrame extends JFrame implements Runnable {
 	setIgnoreRepaint(true);
 	targetFPS = 60;  // How many frames are we going to generate per second?
 	nanosPerUpdate = 1000000000 / targetFPS;
-	events = new ConcurrentLinkedQueue<Event>();
+	events = new ConcurrentLinkedQueue<>();
 	
 	addWindowListener(new WindowAdapter() {
 	    @Override
@@ -226,8 +226,7 @@ public class AnimatedFrame extends JFrame implements Runnable {
 	return events;
     }
 
-    public enum Event
-    {
+    public enum Event {
 	TODO,
     }
     
