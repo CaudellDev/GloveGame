@@ -1,8 +1,12 @@
 package GloveGame;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import javax.swing.*;
 
 /**
  * Handles the events and graphics
@@ -14,6 +18,20 @@ public class StartScreen implements Screen {
     
     public StartScreen(AnimatedFrame theFrame) {
         this.theFrame = theFrame;
+        
+        JButton button = new JButton("Test Button");
+        button.setEnabled(true);
+        button.setPreferredSize(new Dimension(100, 50));
+        button.setVisible(true);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
+        button.setVerticalAlignment(SwingConstants.CENTER);
+        
+        JPanel panel = new JPanel(true);
+        panel.setLayout(new FlowLayout());
+        panel.add(button);
+        
+        this.theFrame.add(panel);
+        
     }
 
     @Override

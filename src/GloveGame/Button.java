@@ -9,6 +9,6 @@ package GloveGame;
  *
  * @author Tyler
  */
-public class Button {
+public class Button extends MenuEntity {
     
 }

@@ -26,6 +26,7 @@ public class AnimatedFrame extends JFrame implements Runnable {
     private DisplayMode mode;
     private BufferStrategy bstrat;
     private Cursor hiddenCursor;
+    private boolean useFullscreen;
     // FPS limiter
     private int targetFPS;
     private long nanosPerUpdate;
@@ -50,6 +51,7 @@ public class AnimatedFrame extends JFrame implements Runnable {
 	targetFPS = 60;  // How many frames are we going to generate per second?
 	nanosPerUpdate = 1000000000 / targetFPS;
 	events = new ConcurrentLinkedQueue<>();
+        useFullscreen = true;
 	
 	addWindowListener(new WindowAdapter() {
 	    @Override
@@ -80,16 +82,21 @@ public class AnimatedFrame extends JFrame implements Runnable {
     private void initGame() {
 	currentScreen = createInitialScreen();
 
-	if (initFSMode()) {
+	if (useFullscreen && initFSMode()) {
 
 	    gameThread = new Thread(this);
 	    gameThread.start();
 	} else {
 	    System.out.println("initFSMode() returned false; quitting.");
-//            this.setPreferredSize(new Dimension(600, 600));
-//            this.setLocale(Locale.ENGLISH);
-//            this.setVisible(true);
-	    dispose();
+            this.setSize(300, 300);
+            this.setUndecorated(false);
+            this.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent windowEvent){
+                    System.exit(0);
+                }        
+            }); 
+            this.setVisible(true);
+	    //dispose();
 	}
     }
 
