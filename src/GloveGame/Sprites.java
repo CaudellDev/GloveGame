@@ -10,7 +10,7 @@ public class Sprites {
     
     private BufferedImage img;
     private SpriteList selectedSprites;
-    private SpriteState 
+    private SpriteState spriteState;
     
     public enum SpriteList {
         TODO,
