@@ -5,6 +5,8 @@
  */
 package GloveGame;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author Tyler
@@ -13,6 +15,23 @@ public class MenuEntity {
 
     private int xPos;
     private int yPos;
+    private int width;
+    private int height;
+    
+    
+    private BufferedImage icon;
+    
+    public MenuEntity() {
+        
+    }
+    
+    public MenuEntity(int x, int y) {
+        
+    }
+    
+    public MenuEntity(BufferedImage img) {
+        
+    }
     
     public int getX() {
         return xPos;

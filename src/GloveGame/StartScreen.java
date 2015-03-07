@@ -18,20 +18,6 @@ public class StartScreen implements Screen {
     
     public StartScreen(AnimatedFrame theFrame) {
         this.theFrame = theFrame;
-        
-        JButton button = new JButton("Test Button");
-        button.setEnabled(true);
-        button.setPreferredSize(new Dimension(100, 50));
-        button.setVisible(true);
-        button.setHorizontalAlignment(SwingConstants.CENTER);
-        button.setVerticalAlignment(SwingConstants.CENTER);
-        
-        JPanel panel = new JPanel(true);
-        panel.setLayout(new FlowLayout());
-        panel.add(button);
-        
-        this.theFrame.add(panel);
-        
     }
 
     @Override
@@ -51,19 +37,8 @@ public class StartScreen implements Screen {
         g.setColor(Color.black);
         g.fillRect(0, 0, theFrame.getWidth(), theFrame.getHeight());
         
-        
-        
-        // Button
-//        g.setColor(Color.blue);
-//        int xCen = theFrame.getWidth() / 2;
-//        int yCen = theFrame.getHeight() / 2;
-//        int width = 100;
-//        int height = 50;
-//        g.fillRect(xCen - width/2, yCen - height/2, width, height);
-//        
-//        g.setColor(Color.red);
-//        g.drawString("Button", xCen - 40, yCen - 20);
-        
+        g.setColor(Color.red);
+        g.fillRect(100, 100, 200, 50);
         
     }
 
